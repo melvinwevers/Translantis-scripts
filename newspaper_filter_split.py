@@ -3,16 +3,18 @@ import csv
 import pprint
 import sys
 import re
+import os
 
 from datetime import datetime
 
-src_path = "/Users/wevers/Data/"
+src_path = os.path.dirname(os.path.abspath(__file__))
+main_file = sys.argv[1]
 
 csv.field_size_limit(sys.maxsize)
 
 field_id = 'ddd:11'
 filtered_newspapers = ["De Graafschap-bode : nieuws- en advertentieblad voor stad- en ambt-Doetinchem, Hummelo en Keppel, Wehl, Zeddam, 's Heerenberg, Ulft, Gendringen, Sillevolde, Terborg, Varsseveld, Dinxperlo, Aalten, Breedevoorde, Lichtenvoorde, Groenlo, Neede, Eibergen, Bor",
-                       "De tijd : dagblad voor Nederland",
+                       "De tĳd : dagblad voor Nederland", 
                        "De Tijd De Maasbode",
                        "Haagsche courant",
                        ]
