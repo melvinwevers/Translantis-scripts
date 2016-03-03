@@ -7,7 +7,7 @@ import os
 
 from datetime import datetime
 
-src_path = os.path.dirname(os.path.abspath(__file__))
+src_path = os.path.dirname(os.path.dirname(__file__))
 main_file = sys.argv[1]
 
 csv.field_size_limit(sys.maxsize)
@@ -41,6 +41,7 @@ dateranges = [("1916-04-01", "1916-06-30"),
               ("1970-01-01", "1989-12-31")
               ]
 
+a = 1
 dateranges = list(map(lambda dr:
                       tuple(map(lambda x:
                             datetime.strptime(x, "%Y-%m-%d"), dr)),
@@ -63,7 +64,7 @@ def filterrows():
         pass
 
 output = []
-with open('my_file.csv', 'r') as f:
+with open(main_file, 'r') as f:
     reader = csv.reader(f, delimiter='\t', quotechar='"')
     header = next(reader)
     output.append(header)
@@ -80,7 +81,7 @@ with open('my_file.csv', 'r') as f:
         else:
             filterrows()
 
-row_count = sum(1 for row in output)
+row_count = sum(1 for row in output) - a 
 
 
 print("Numbers of rows in file: {}".format(row_count))
