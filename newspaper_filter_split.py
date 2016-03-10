@@ -58,7 +58,7 @@ def datefilter(x):
 
 def filterrows():
     try:
-        new_row = [row[4], row[25], row[28]]
+        new_row = [row [4], row[25], row[28]]
         output.append(new_row)
     except IndexError as e:
         pass
@@ -81,8 +81,12 @@ with open(main_file, 'r') as f:
         else:
             filterrows()
 
-row_count = sum(1 for row in output) - a 
 
+with open('output_filtered.csv', 'w') as outputfile:
+    writer = csv.writer(outputfile, delimiter='\t')
+    writer.writerows(output)
+
+row_count = sum(1 for row in output) - a 
 
 print("Numbers of rows in file: {}".format(row_count))
 
