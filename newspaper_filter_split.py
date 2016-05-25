@@ -16,7 +16,6 @@ field_id = 'ddd:11'
 filtered_newspapers = ["De Graafschap-bode : nieuws- en advertentieblad voor stad- en ambt-Doetinchem, Hummelo en Keppel, Wehl, Zeddam, 's Heerenberg, Ulft, Gendringen, Sillevolde, Terborg, Varsseveld, Dinxperlo, Aalten, Breedevoorde, Lichtenvoorde, Groenlo, Neede, Eibergen, Bor",
                        "De tĳd : dagblad voor Nederland", 
                        "De Tijd De Maasbode",
-                       "Haagsche courant",
                        ]
 
 dateranges = [("1916-04-01", "1916-06-30"),
