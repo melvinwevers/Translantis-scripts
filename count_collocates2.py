@@ -13,10 +13,15 @@ main_file = sys.argv[1]
 csv.field_size_limit(sys.maxsize)
 
 field_id = 'ddd:11'
+reg_ex = r'\b(?:(kanker[a-z]*)\W+(?:\w+\W+){0,14}?([c|s]igaret[a-z]*|ro{1,2}ken)|([c|s]igaret[a-z]*|ro{1,2}ken)\W+(?:\w+\W+){0,14}?(kanker[a-z]*))\b'
+#reg_ex2 = r'\b(?:(kanker[a-z]*)\W+(?:\w+\W+){0,14}?([c|s]igaret[a-z]*|ro{1,2}ken)|([c|s]igaret[a-z]*|ro{1,2}ken)\W+(?:\w+\W+){0,14}?(kanker[a-z]*))\b'
+reg_ex2 = r'\b(usa|u\.s\.a|ver\.staten|vere{1,2}nigde staten|ameri[k|c]a*)\b'
+
 filtered_newspapers = ["De Graafschap-bode : nieuws- en advertentieblad voor stad- en ambt-Doetinchem, Hummelo en Keppel, Wehl, Zeddam, 's Heerenberg, Ulft, Gendringen, Sillevolde, Terborg, Varsseveld, Dinxperlo, Aalten, Breedevoorde, Lichtenvoorde, Groenlo, Neede, Eibergen, Bor",
                        "De tĳd : dagblad voor Nederland", 
                        "De Tijd De Maasbode",
                        ]
+
 
 dateranges = [("1916-04-01", "1916-06-30"),
               ("1917-01-01", "1917-03-31"),
@@ -58,7 +63,7 @@ def datefilter(x):
 
 def filterrows():
     try:
-        new_row = [row [4], row[25], row[28]]
+        new_row = [row [4], row [8], row[25], row[28]]
         output.append(new_row)
     except IndexError as e:
         pass
@@ -72,14 +77,21 @@ with open(main_file, 'r') as f:
     for row in reader:
         if datefilter(row[4]) and row[8] == "De Telegraaf":
             var = re.search('\\b'+field_id, row[3])
-            if bool(var) == False:
-                filterrows()
+            var2 = re.search(reg_ex, row [25] and row[28], re.IGNORECASE)
+            var3 = re.search(reg_ex2, row [25] and row[28], re.IGNORECASE)
+            if bool(var) == False and bool(var2) == True and bool(var3) == True:
+              filterrows()
         elif row[8] in filtered_newspapers:
             var = re.search('\\b'+field_id, row[3])
-            if bool(var) == False:
+            var2 = re.search(reg_ex, row [25] and row[28], re.IGNORECASE)
+            var3 = re.search(reg_ex2, row [25] and row[28], re.IGNORECASE)
+            if bool(var) == False and bool(var2) == True and bool(var3) == True:
                 filterrows()
         else:
-            filterrows()
+            var2 = re.search(reg_ex, row[25] and row[28], re.IGNORECASE)
+            var3 = re.search(reg_ex2, row [25] and row[28], re.IGNORECASE)
+            if bool(var2) == True and bool(var3) == True:
+              filterrows()
 
 
 with open('output_filtered.csv', 'w') as outputfile:
